@@ -1,10 +1,11 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel 
 from dotenv import load_dotenv
 import os
 from openai import AzureOpenAI
 app = FastAPI()
-
+from fastapi.middleware.cors import CORSMiddleware
 
 class UserResponse(BaseModel):
     user_input: str
@@ -40,4 +41,17 @@ async def chat_azure_openai(payload : UserResponse):
         ], max_tokens=1000
     )
     return {"response": response.choices[0].message.content}
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
+app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=9000)
     
