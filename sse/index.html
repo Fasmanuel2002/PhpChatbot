@@ -13,6 +13,10 @@
         eventSource.addEventListener("message",function(event) {
             document.querySelector("#results").innerHTML += event.data
         });
+        eventSource.addEventListener("stop",function(event) {
+            eventSource.close();
+        });
+        
          
     </script>
 </body>

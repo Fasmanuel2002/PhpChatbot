@@ -5,14 +5,16 @@ header("Cache-Control: no-cache");
 header("Connection: keep-alive");
 ob_end_flush();
 
-while( true ){
+$message = "Hello! I am your assistant. How Can I help you today";
+foreach(str_split($message) as $letter ){
     echo "event: message\n";
-    echo "data: " . date("H:i:s") . "\n\n";
+    echo "data: ".$letter."\n\n\n";
     flush(); //Flush partial messages 
 
     if( connection_aborted ()) break; //if the user eliminates the web, stop sending data 
 
-    sleep( 1 );
+    usleep( 1000 * 50 );
 }
 
-
+echo "event: stop\n";
+echo "data: stopped\n\n"; 
