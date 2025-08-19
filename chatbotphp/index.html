@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot Azure OpenAI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 10px;
+      background-color: #f4f4f4;
+    }
+    #chat-messages {
+      border: 1px solid #ccc;
+      background-color: #fff;
+      padding: 10px;
+      height: 400px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    .outgoing-message {
+      color: blue;
+      margin: 5px 0;
+    }
+    .incoming-message {
+      color: green;
+      margin: 5px 0;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Chatbot Azure OpenAI</h2>
+
+  <div id="chat-messages"></div>
+
+  <input type="text" id="message-input" placeholder="Escribe tu mensaje...">
+  <button id="send-btn">Enviar</button>
+
+  <!-- 👇 carga tu script externo -->
+  <script src="/chatbotphp/script.js"></script>
+</body>
+</html>

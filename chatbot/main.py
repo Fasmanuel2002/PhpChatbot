@@ -38,17 +38,18 @@ async def chat_azure_openai(payload : UserResponse):
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": user_input} 
                
-        ], max_tokens=1000
+        ], max_tokens=1000,
+        
     )
     return {"response": response.choices[0].message.content}
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
+    allow_origins=["*"],  
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
-)
+    allow_methods=["*"],  
+    allow_headers=["*"],  
+    )
 app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
 
 if __name__ == "__main__":

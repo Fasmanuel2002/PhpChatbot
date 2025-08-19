@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot Azure OpenAI</title>
+    <title>Chatbot SSE</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -40,20 +40,12 @@
     </style>
 </head>
 <body>
-    <h1>Chatbot Azure OpenAI</h1>
+    <h1>Chatbot con SSE</h1>
     <div id="chat"></div>
-    <input type="text" id="userInput" placeholder="Escribe tu mensaje...">
+
+    <input type="text" id="message-input" placeholder="Escribe tu mensaje...">
     <button id="sendBtn">Enviar</button>
 
-    <script src="script.js">
-        const eventSource = new EventSource("message.php") 
-        eventSource.addEventListener("message" ,function(event) {
-            document.querySelector("#results").innerHTML += event.data
-        });
-        eventSource.addEventListener("stop",function(event) {
-            eventSource.close();
-        });
-    </script>
-     
-        
+    <script src="script.js"></script>
 </body>
+</html>
