@@ -9,8 +9,8 @@
     <div id="results"></div>
     <script>
         //Listen to the events, appended to the results
-        const eventSource = new EventSource("/sse/events.php") 
-        eventSource.addEventListener("message",function(event) {
+        const eventSource = new EventSource("sse/events.php") 
+        eventSource.addEventListener("message" ,function(event) {
             document.querySelector("#results").innerHTML += event.data
         });
         eventSource.addEventListener("stop",function(event) {
