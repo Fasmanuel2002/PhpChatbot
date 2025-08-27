@@ -27,21 +27,24 @@ client = AzureOpenAI(
     base_url=f"{AZURE_OPENAI_ENDPOINT}/openai/deployments/{AZURE_OPENAI_CHAT_DEPLOYMENT_NAME}"   
 )
 
+messages = [{"role": "system", "content": "You are a helpful assistant."}]
+
 @app.post("/chatAzureOpenAI")
 async def chat_azure_openai(payload : UserResponse):
     user_input = payload.user_input
     if user_input.lower() == "exit":
         return {"message": "Ending the conversation. Have a great day!"}
+    messages.append({"role": "user", "content": user_input})
     response = client.chat.completions.create(
         model=AZURE_OPENAI_CHAT_DEPLOYMENT_NAME, # type: ignore
-        messages = [
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": user_input} 
-               
-        ], max_tokens=1000,
-        
+        max_tokens=1000,
+        messages=messages
     )
-    return {"response": response.choices[0].message.content}
+    ai_message = response.choices[0].message.content
+    
+    # guardamos la respuesta del asistente en el historial
+    messages.append({"role": "assistant", "content": ai_message})
+    return {"response": ai_message}
 
 app.add_middleware(
     CORSMiddleware,
