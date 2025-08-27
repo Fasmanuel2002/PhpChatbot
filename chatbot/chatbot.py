@@ -23,18 +23,19 @@ client = AzureOpenAI(
     base_url=f"{AZURE_OPENAI_ENDPOINT}/openai/deployments/{AZURE_OPENAI_CHAT_DEPLOYMENT_NAME}"
 )
 
+messages = [{"role": "system", "content": "You are a helpful assistant."}]
 print("Chatbot: Hello! How can I assist you today? Type 'exit' to end the conversation.")
 while True:
     user_input = input("You: ")
     if user_input.lower() == "exit":
         print("Chatbot: Ending the conversation. Have a great day!")
         break
+    messages.append({"role": "user", "content": user_input})
     response = client.chat.completions.create(
         model=AZURE_OPENAI_MODEL_NAME,
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": user_input}
-        ],
-        max_tokens=200
+        max_tokens=200,
+        messages=messages
     )
-    print("Chatbot:", response.choices[0].message.content.strip())
+    ai_message = response.choices[0].message.content
+    messages.append({"role": "assistant", "content": ai_message})
+    print("Chatbot:", ai_message.strip())
